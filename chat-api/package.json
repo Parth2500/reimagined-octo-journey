@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@nestjs/mongoose": "^10.1.0",
+    "@nestjs/platform-socket.io": "^10.4.11",
+    "@nestjs/websockets": "^10.4.11",
+    "mongoose": "^8.8.3"
+  }
+}

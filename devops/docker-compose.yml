@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  auth-api:
+    build:
+      context: ../
+      dockerfile: devops/docker/auth-api.Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/auth-db
+      - JWT_SECRET=mysecretkey
+      - JWT_EXPIRATION=3600s
+    depends_on:
+      - mongo
+
+  chat-api:
+    build:
+      context: ../
+      dockerfile: devops/docker/chat-api.Dockerfile
+    ports:
+      - "3002:3002"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/chat-db
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ../
+      dockerfile: devops/docker/frontend.Dockerfile
+    ports:
+      - "80:80"
+
+  mongo:
+    image: mongo:5
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
